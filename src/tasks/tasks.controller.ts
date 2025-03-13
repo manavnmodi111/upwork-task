@@ -17,11 +17,8 @@ export class TasksController {
   }
 
   @Delete(':id')
-  async delete(@Param('id') id: string): Promise<Task> {
-    const deletedTask = await this.tasksService.delete(id);
-    if (!deletedTask) {
-      throw new NotFoundException(`Task with id ${id} not found`);
-    }
-    return deletedTask;
+  async delete(@Param('id') id: string) {
+    return this.tasksService.delete(id);
   }
+  
 }
