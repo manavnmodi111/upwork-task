@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TasksModule } from './tasks/tasks.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    // MongoDB connection string here
-    MongooseModule.forRoot('mongodb+srv://admin:admin@todo.jpqae.mongodb.net/?retryWrites=true&w=majority&appName=todo'),
-    TasksModule, // <-- Import the tasks module
+    ConfigModule.forRoot(), // <-- Add this line to enable env access
+    MongooseModule.forRoot(process.env.MONGO_URI || 'mongodb://localhost:27017/mydb'), // <-- Use env var
+    TasksModule,
   ],
 })
 export class AppModule {}
